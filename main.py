@@ -35,6 +35,7 @@ def read_root():
 
 @app.post("/query_stock/")
 def get_value(query: StockQuery):
+    print("Request received")
     data = GetValue_byDate(appkey, appsecret, token, query.stock_code, query.start_date, query.end_date)
     result = GetFiltered_clpr(data)
     return result
