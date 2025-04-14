@@ -25,7 +25,7 @@ def mean_average(data, mean_width):
 
 
 def GetFiltered_clpr(data):
-    print(data)
+    # print(data)
     columns = ["dates", "values"]
     df = pd.DataFrame(columns=columns)
 
@@ -35,5 +35,5 @@ def GetFiltered_clpr(data):
         new_row = pd.DataFrame([{"dates": dateText, "values": int(row["stck_clpr"])}])
         df = pd.concat([df, new_row], ignore_index=True)
 
-    print(df)
+    # print(df)
     return df
