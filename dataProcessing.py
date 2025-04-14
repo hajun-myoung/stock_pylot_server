@@ -26,14 +26,14 @@ def mean_average(data, mean_width):
 
 def GetFiltered_clpr(data):
     print(data)
-    columns = ["dates","values"]
+    columns = ["dates", "values"]
     df = pd.DataFrame(columns=columns)
 
-    for row in data['output2']:
+    for row in data["output2"]:
         dateText = f"{row['stck_bsop_date'][2:4]}/{row['stck_bsop_date'][4:6]}/{row['stck_bsop_date'][6:8]}"
         # dateText = f"{row['stck_bsop_date'][4:6]}/{row['stck_bsop_date'][6:8]}"
-        new_row =  pd.DataFrame([{"dates":dateText,"values":int(row['stck_clpr'])}])
-        df = pd.concat([df,new_row],ignore_index=True)
+        new_row = pd.DataFrame([{"dates": dateText, "values": int(row["stck_clpr"])}])
+        df = pd.concat([df, new_row], ignore_index=True)
 
     print(df)
     return df
