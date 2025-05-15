@@ -38,10 +38,13 @@ def read_root():
 
 
 def get_data(query: StockQuery):
-    data = GetValue_byDate(
-        appkey, appsecret, token, query.stock_code, query.start_date, query.end_date
-    )
-    result = GetFiltered_clpr(data)
+    try:
+        data = GetValue_byDate(
+            appkey, appsecret, token, query.stock_code, query.start_date, query.end_date
+        )
+        result = GetFiltered_clpr(data)
+    except Exception as e:
+        print(e)
     return result
 
 
