@@ -25,7 +25,6 @@ app = FastAPI()
 load_dotenv(override=True)
 appkey = os.getenv("appkey")
 appsecret = os.getenv("appsecret")
-token_generation_time = os.getenv("token_generation_time")
 
 # 토큰 가져오기
 token = Get_token(appkey, appsecret)
