@@ -176,8 +176,9 @@ class WatchDogStartQuery(BaseModel):
 @app.post("/watchdog/start")
 def start_watchdog(query: WatchDogStartQuery):
     global watchdog_threads
+    global watchdog_flags
 
-    if query.stock_code in watchdog_threads:
+    if query.stock_code in watchdog_threads and watchdog_flags[query.stock_code]:
         return {
             "status": "Failed",
             "message": f"code {query.stock_code} is already watching now",
