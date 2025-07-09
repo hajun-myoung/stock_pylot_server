@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 
 def Get_token(appkey: str, appsecret: str):
-    url = "https://openapi.koreainvestment.com:9443/oauth2/tokenP"
+    url = "https://openapivts.koreainvestment.com:29443/oauth2/tokenP"
 
     headers = {"Content-Type": "application/json"}
 
