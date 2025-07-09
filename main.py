@@ -142,8 +142,8 @@ def check_ma_cross(prices: list[float], short: int, long: int):
 
 def watchdog_loop(code: str, qty: int, short: int = 15, long: int = 30):
     global watchdog_flags
-    while watchdog_flags.get(code, False):
-        try:
+    try:
+        while watchdog_flags.get(code, False):
             print(f"{code} is watching now...")
             curQuery = StockQuery(
                 stock_code=code,
@@ -159,12 +159,13 @@ def watchdog_loop(code: str, qty: int, short: int = 15, long: int = 30):
                 execute_trade(appkey, appsecret, token, code, qty, decision == "buy")
             else:
                 print(f"[INFO]{code} - No Decision")
-
-        except Exception as e:
-            print(f"[Error]code: {code}\n {e}")
-        time.sleep(864000)
-
-    return {"watchdog_status": "stopped"}
+            time.sleep(86400)
+    except Exception as e:
+        print(f"[Error]code: {code}\n {e}")
+        time.sleep(86400)
+    finally:
+        watchdog_flags.pop(code, None)
+    return True
 
 
 class WatchDogStartQuery(BaseModel):
@@ -201,3 +202,12 @@ def stop_watchdog(code: str):
 
     return False
     # return {"watchdog_status": "stopped"}
+
+
+@app.get("/watchdog/status")
+def get_watchdog_status():
+    return {
+        "status": [
+            {"code": code, "watching": flag} for code, flag in watchdog_flags.items()
+        ]
+    }
